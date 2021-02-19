@@ -92,26 +92,35 @@ function configureAndInstall() {
     printf -- 'Downloading and installing Yarn.\n'
     cd "${CURDIR}"
     curl -o- -L https://yarnpkg.com/install.sh | bash
+    # check001
     export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    # check002
     yarn -v  >> "${LOG_FILE}"
+    # check003
 
     # Downloading and installing Kibana
     printf -- '\nDownloading and installing Kibana.\n'
     cd "${CURDIR}"
+    # check004
     git clone -b v$PACKAGE_VERSION https://github.com/elastic/kibana.git
+    # check005
     cd kibana
+    # check006
 
     # Applying patch
     curl -o kibana_patch.diff $PATCH_URL/kibana_patch.diff
+    # check007
     git apply kibana_patch.diff
     
     if [[ "${DISTRO}" == "rhel-7.8" ]] || [[ "${DISTRO}" == "rhel-7.9" ]] ; then
     curl -o register_git_hook.diff $PATCH_URL/register_git_hook.diff
     git apply register_git_hook.diff
     fi
+    # check008
 
     # Bootstrap Kibana
     yarn kbn bootstrap --oss
+    # check009
 
     # Building Kibana
     cd "${CURDIR}"/kibana
