@@ -117,6 +117,7 @@ function configureAndInstall() {
     git apply register_git_hook.diff
     fi
     printf -- '\nCHECK 008.\n'
+    yarn config set network-timeout 600000
 
     # Bootstrap Kibana
     yarn kbn bootstrap --oss
