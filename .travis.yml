@@ -1,0 +1,15 @@
+dist: focal
+
+jobs:
+  # Define extra jobs that are run in addition to the main jobs matrix
+  include:
+    - os: linux
+      arch: amd64
+      dist: focal
+      script: bash x86_tests.sh 
+
+      
+    - os: linux
+      dist: focal
+      arch: s390x
+      script: bash s390x_tests.sh 
