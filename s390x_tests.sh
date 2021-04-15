@@ -5,7 +5,7 @@ wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.15/bui
 bash build_go.sh -y
 
 sudo apt-get install -y docker.io
-sleep 30s
+sleep 100s
 sudo nohup dockerd &
 sudo chmod ugo+rw /var/run/docker.sock
 
