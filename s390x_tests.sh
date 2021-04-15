@@ -12,6 +12,7 @@ sudo chmod ugo+rw /var/run/docker.sock
 docker ps
 
 docker run hello-world
+docker login -u=lozdocker -p loz@docker
 
 export GOPATH=$SOURCE_ROOT/go
 mkdir -p $SOURCE_ROOT/go/src/github.com/moby
