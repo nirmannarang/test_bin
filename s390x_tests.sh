@@ -11,6 +11,8 @@ sudo chmod ugo+rw /var/run/docker.sock
 
 docker ps
 
+docker run hello-world
+
 export GOPATH=$SOURCE_ROOT/go
 mkdir -p $SOURCE_ROOT/go/src/github.com/moby
 cd $SOURCE_ROOT/go/src/github.com/moby
