@@ -1,7 +1,7 @@
 dist: focal
 os: linux
-arch: s390x
-script: bash s390x_tests.sh
+#arch: s390x
+script: curl https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=600119&date=01-05-2021
 
 
 #jobs:
