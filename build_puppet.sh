@@ -174,8 +174,12 @@ function runTest() {
 	set +e
   	if [[ "$TEST" == "true" ]]; then
     	printf -- "TEST Flag is set, continue with running test \n"
+		printf -- "Running clojure test suite \n"
 		cd $SOURCE_ROOT/puppetserver
 		RUBYOPT='-W0' PUPPETSERVER_HEAP_SIZE=6G lein test
+		printf -- "Running jruby test suite \n"
+		cd $SOURCE_ROOT/puppetserver
+		rake spec		
       	printf -- "Test suite execution completed \n"
   	fi
   	set -e
