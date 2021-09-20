@@ -314,7 +314,7 @@ if [[ "$USEAS" == "server" ]]; then
 	"rhel-8.1" | "rhel-8.2" | "rhel-8.3")
 		printf -- "Installing %s Server %s for %s \n" "$PACKAGE_NAME" "$SERVER_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 		printf -- "Installing the dependencies for $PACKAGE_NAME from repository \n" |& tee -a "$LOG_FILE"
-		sudo yum install -y gcc-c++ tar unzip openssl-devel make git wget zip ant readline-devel gdbm-devel |& tee -a "$LOG_FILE"
+		sudo yum install -y gcc-c++ tar unzip openssl-devel make git wget zip ant readline-devel gdbm-devel diffutils |& tee -a "$LOG_FILE"
 		configureAndInstall |& tee -a "$LOG_FILE"
 		;;
 
