@@ -86,10 +86,6 @@ function buildAgent() {
 	#Install Puppet
 	cd "$SOURCE_ROOT"
 	sudo -E env PATH="$PATH" gem install puppet -v $AGENT_VERSION
-
-	if [[ "$DISTRO" == "sles-15.2" ]]; then
-		sudo ln -s /usr/lib64/ruby/gems/2.7.3/gems/puppet-$AGENT_VERSION/bin/puppet /usr/local/bin/puppet
-	fi
 	printf -- 'Completed Puppet agent setup \n'
 }
 
