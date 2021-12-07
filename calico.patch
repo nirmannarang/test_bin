@@ -1,0 +1,43 @@
+index 317f4d3..5892a19 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+ PACKAGE_NAME?=github.com/projectcalico/pod2daemon
+-GO_BUILD_VER?=v0.58
++GO_BUILD_VER?=v0.59
+
+ ORGANIZATION=projectcalico
+ SEMAPHORE_PROJECT_ID?=$(SEMAPHORE_POD2DAEMON_PROJECT_ID)
+ubuntu@nirman:~/calico/go/src/github.com/projectcalico/pod2daemon$ cd $GOPATH/src/github.com/projectcalico/calico
+ubuntu@nirman:~/calico/go/src/github.com/projectcalico/calico$ git diff
+diff --git a/Makefile b/Makefile
+index f5fa27fe..aaf0cc2f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -532,7 +532,7 @@ $(RELEASE_DIR_BIN)/%:
+ bin/helm: bin/helm3
+        mkdir -p bin
+        $(eval TMP := $(shell mktemp -d))
+-       wget -q https://get.helm.sh/helm-v2.16.3-linux-amd64.tar.gz -O $(TMP)/helm.tar.gz
++       wget -q https://get.helm.sh/helm-v2.16.3-linux-s390x.tar.gz -O $(TMP)/helm.tar.gz
+        tar -zxvf $(TMP)/helm.tar.gz -C $(TMP)
+        mv $(TMP)/linux-amd64/helm bin/helm
+
+@@ -540,7 +540,7 @@ helm-deps: bin/helm3 bin/helm
+ bin/helm3:
+        mkdir -p bin
+        $(eval TMP := $(shell mktemp -d))
+-       wget -q https://get.helm.sh/helm-v3.3.1-linux-amd64.tar.gz -O $(TMP)/helm3.tar.gz
++       wget -q https://get.helm.sh/helm-v3.3.1-linux-s390x.tar.gz -O $(TMP)/helm3.tar.gz
+        tar -zxvf $(TMP)/helm3.tar.gz -C $(TMP)
+        mv $(TMP)/linux-amd64/helm bin/helm3
+
+@@ -576,7 +576,7 @@ help: # Some kind of magic from https://gist.github.com/rcmachado/af3db315e31383
+                }                                                               \
+                if (nb)                                                         \
+                        printf "\033[1;31m%-" width "s\033[0m %s\n", $$1, helpMsg;  \
+-       }                                                                   \
++                       }                                                       \
+        { helpMsg = $$0 }'                                                  \
+        width=20                                                            \
+        $(MAKEFILE_LIST)
