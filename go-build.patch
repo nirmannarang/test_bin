@@ -12,8 +12,7 @@ index 541064b..008658c 100644
 -RUN apk --update add curl
 -
 -# Enable non-native runs on amd64 architecture hosts
--RUN for i in ${QEMU_ARCHS}; do curl -L https://github.com/multiarch/qemu-user-static/releases/download/v${QEMU_VERSION}/qemu-${i}-static.tar.gz | tar zxvf - -C /usr/bi
-n; done
+-RUN for i in ${QEMU_ARCHS}; do curl -L https://github.com/multiarch/qemu-user-static/releases/download/v${QEMU_VERSION}/qemu-${i}-static.tar.gz | tar zxvf - -C /usr/bin; done
 -RUN chmod +x /usr/bin/qemu-*
 -
 -FROM s390x/golang:1.16.7-alpine3.14
