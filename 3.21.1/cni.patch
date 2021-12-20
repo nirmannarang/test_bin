@@ -1,0 +1,41 @@
+diff --git a/Dockerfile.s390x b/Dockerfile.s390x
+index 96fe3a7..adf0440 100644
+--- a/Dockerfile.s390x
++++ b/Dockerfile.s390x
+@@ -1,18 +1,27 @@
+-FROM s390x/debian:9.8-slim
++FROM registry.access.redhat.com/ubi8/ubi-minimal:latest as base
+ 
++FROM scratch
+ LABEL maintainer "LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource)"
+ 
++ARG GIT_VERSION=unknown
++
++LABEL name="Calico Networking for CNI" \
++      vendor="Project Calico" \
++      version=$GIT_VERSION \
++      release="1" \
++      summary="Calico Networking for CNI" \
++      description="Calico Networking for CNI includes a CNI networking plugin and CNI IPAM plugin" \
++      maintainer="maintainers@projectcalico.org"
++
+ ADD licenses/ /licenses
+ ADD LICENSE /licenses/
+-RUN mkdir -p /opt/cni/bin
+-
+-FROM scratch
+ 
+-COPY --from=base /licenses /licenses
+-COPY --from=base /opt/cni/bin /opt/cni/bin
++# Include libraries from UBI for dynamic linking.
++COPY --from=base /lib64 /lib64
++COPY --from=base /lib /lib
+ 
+ ADD bin/s390x/ /opt/cni/bin/
+ 
+ ENV PATH=$PATH:/opt/cni/bin
+-WORKDIR /opt/cni/bin]
+-CMD ["/opt/cni/bin/install"]
+\ No newline at end of file
++WORKDIR /opt/cni/bin
++CMD ["/opt/cni/bin/install"]
