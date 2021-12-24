@@ -36,7 +36,7 @@ index b6ff6fc..c8aa428 100644
  
  # Tell sv where to find the services.
 diff --git a/Makefile b/Makefile
-index d1f0849..0e441d9 100644
+index d1f0849..faa4a78 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,5 +1,5 @@

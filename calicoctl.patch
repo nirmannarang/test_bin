@@ -1,40 +1,21 @@
 diff --git a/Dockerfile.s390x b/Dockerfile.s390x
-index c4832694..f1aa93ca 100644
+index c4832694..aa331358 100644
 --- a/Dockerfile.s390x
 +++ b/Dockerfile.s390x
-@@ -1,22 +1,27 @@
+@@ -1,12 +1,4 @@
 -ARG QEMU_IMAGE
 -# Copying qemu binary files from amd64 container.
 -# latest `go-build` containers got no candidate for `s390x` architecture.
 -FROM --platform=linux/amd64 ${QEMU_IMAGE} as qemu
 -
--FROM s390x/alpine:3.10
+ FROM s390x/alpine:3.10
 -# Enable non-native builds of this image on an amd64 hosts.
 -# This must be the first RUN command in this file!
 -COPY --from=qemu /usr/bin/qemu-s390x-static /usr/bin/
-+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.2 as ubi
-+
  MAINTAINER LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource)
  
--RUN apk --no-cache upgrade apk-tools
-+RUN mkdir /licenses
-+COPY LICENSE /licenses
-+
-+FROM scratch
-+ARG GIT_VERSION=unknown
-+
-+LABEL name="Calico CLI tool" \
-+      vendor="Project Calico" \
-+      version=$GIT_VERSION \
-+      release="1" \
-+      summary="Calico CLI tool" \
-+      description="calicoctl(1) is a command line tool used to interface with the Calico datastore " \
-+      maintainer="maintainers@projectcalico.org"
-+
-+COPY --from=ubi /licenses /licenses
- 
- ADD bin/calicoctl-linux-s390x /calicoctl
- 
+ RUN apk --no-cache upgrade apk-tools
+@@ -16,7 +8,5 @@ ADD bin/calicoctl-linux-s390x /calicoctl
  ENV CALICO_CTL_CONTAINER=TRUE
  ENV PATH=$PATH:/
  
