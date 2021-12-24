@@ -174,8 +174,8 @@ EOF
     curl -s $PATCH_URL/go-build.patch | git apply - 2>&1 | tee -a "$GOBUILD_LOG"
 	# Then build `calico/go-build-s390x:v0.49` image
     ARCH=s390x VERSION=v0.59 ARCHIMAGE='$(DEFAULTIMAGE)' make image | tee -a "$GOBUILD_LOG"
-    if grep -Fxq "Successfully tagged calico/go-build:v0.49" $GOBUILD_LOG; then
-        echo "Successfully built calico/go-build:v0.49" | tee -a "$GOBUILD_LOG"
+    if grep -Fxq "Successfully tagged calico/go-build:v0.59" $GOBUILD_LOG; then
+        echo "Successfully built calico/go-build:v0.59" | tee -a "$GOBUILD_LOG"
     else
         echo "go-build FAILED, Stopping further build !!! Check logs at $GOBUILD_LOG" | tee -a "$GOBUILD_LOG"
         exit 1
