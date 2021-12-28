@@ -272,9 +272,10 @@ EOF
 
     export POD_LOG="${LOGDIR}/pod-$(date +"%F-%T").log"
     touch $POD_LOG
+    sudo rm -rf $GOPATH/src/github.com/projectcalico/pod2daemon
     git clone -b $PACKAGE_VERSION https://github.com/projectcalico/pod2daemon $GOPATH/src/github.com/projectcalico/pod2daemon
     cd $GOPATH/src/github.com/projectcalico/pod2daemon
-	curl -s $PATCH_URL/pod2daemon.patch | git apply - 2>&1 | tee -a "$POD_LOG"
+    curl -s $PATCH_URL/pod2daemon.patch | git apply - 2>&1 | tee -a "$POD_LOG"
     ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make image 2>&1 | tee -a "$POD_LOG"
     docker tag calico/pod2daemon-flexvol:latest-s390x calico/pod2daemon:latest-s390x
 	
@@ -298,7 +299,7 @@ EOF
     printf -- "\Applying patch for calico ... \n" | tee -a "$CALICO_LOG"
     curl -s $PATCH_URL/calico.patch | git apply - 2>&1 | tee -a "$CALICO_LOG"
 	
-     Build dev-images
+    # Build dev-images
     ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make dev-image 2>&1 | tee -a "$CALICO_LOG"
 
     # Tag docker images
