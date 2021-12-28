@@ -1,22 +1,4 @@
 #!/bin/bash
-# © Copyright IBM Corporation 2021.
-# LICENSE: Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
-
-################################################################################################################################################################
-#Script     :   build_calico.sh
-#Description:   The script builds Calico version v3.18.1 on Linux on IBM Z for RHEL (7.8, 7.9, 8.2, 8.3), Ubuntu (18.04, 20.04, 21.04) and SLES (12 SP5, 15 SP2).
-#Maintainer :   LoZ Open Source Ecosystem (https://www.ibm.com/community/z/usergroups/opensource)
-#Info/Notes :   Please refer to the instructions first for Building Calico mentioned in wiki( https://github.com/linux-on-ibm-z/docs/wiki/Building-Calico-3.x ).
-#               This script doesn't handle Docker installation. Install docker first before proceeding.
-#               Build and Test logs can be found in $CURDIR/logs/.
-#               By Default, system tests are turned off. To run system tests for Calico, pass argument "-t" to shell script.
-#
-#Download build script :   wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Calico/3.18.1/build_calico.sh
-#Run build script      :   bash build_calico.sh       #(To only build Calico, provide -h for help)
-#                          bash build_calico.sh -t    #(To build Calico and run system tests)
-#
-################################################################################################################################################################
-
 set -e
 set -o pipefail
 
