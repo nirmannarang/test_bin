@@ -9,20 +9,3 @@ index a2f11d6..fb396ec 100644
  
  ORGANIZATION=projectcalico
  SEMAPHORE_PROJECT_ID?=$(SEMAPHORE_APP_POLICY_PROJECT_ID)
-@@ -158,14 +158,14 @@ proto/felixbackend.pb.go: proto/felixbackend.proto
- 		      $(PROTOC_CONTAINER) \
- 		      $(PROTOC_IMPORTS) \
- 		      proto/*.proto \
--		      --gogofast_out=plugins=grpc:proto
-+		      --gogofaster_out=plugins=grpc:proto
- 
- proto/healthz.pb.go: proto/healthz.proto
- 	$(DOCKER_RUN) -v $(CURDIR):/src:rw \
- 		      $(PROTOC_CONTAINER) \
- 		      $(PROTOC_IMPORTS) \
- 		      proto/*.proto \
--		      --gogofast_out=plugins=grpc:proto
-+		      --gogofaster_out=plugins=grpc:proto
- 
- 
- # Building the image
