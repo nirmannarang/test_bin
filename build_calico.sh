@@ -242,6 +242,15 @@ EOF
     git clone -b $PACKAGE_VERSION https://github.com/projectcalico/kube-controllers $GOPATH/src/github.com/projectcalico/kube-controllers
     cd $GOPATH/src/github.com/projectcalico/kube-controllers
     ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make image 2>&1 | tee -a "$KCTL_LOG"
+    
+    export APISERVER_LOG="${LOGDIR}/apiserver-$(date +"%F-%T").log"
+    touch $APISERVER_LOG
+    printf -- "\nBuilding apiserver ... \n" | tee -a "$APISERVER_LOG"
+    git clone -b $PACKAGE_VERSION https://github.com/projectcalico/apiserver $GOPATH/src/github.com/projectcalico/apiserver
+    cd $GOPATH/src/github.com/projectcalico/apiserver
+    curl -s $PATCH_URL/apiserver.patch | git apply - 2>&1 | tee -a "$APISERVER_LOG"
+    cp docker-image/Dockerfile.amd64 docker-image/Dockerfile.s390x
+    ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make image 2>&1 | tee -a "$APISERVER_LOG"
 
     export APP_POLICY_LOG="${LOGDIR}/app-policy-$(date +"%F-%T").log"
     touch $APP_POLICY_LOG
@@ -385,6 +394,8 @@ EOF
     export TEST_CNI_LOG="${LOGDIR}/testCNILog-$(date +"%F-%T").log"
     export TEST_APP_LOG="${LOGDIR}/testAppLog-$(date +"%F-%T").log"
     export TEST_NODE_LOG="${LOGDIR}/testNodeLog-$(date +"%F-%T").log"
+    export TEST_APPSERVER_LOG="${LOGDIR}/testAppserverLog-$(date +"%F-%T").log"
+    
     touch $TEST_FELIX_LOG
     touch $TEST_KC_LOG
     touch $TEST_CTL_LOG
@@ -392,6 +403,7 @@ EOF
     touch $TEST_APP_LOG
     touch $TEST_NODE_LOG
     touch $TEST_LOG
+    touch $TEST_APPSERVER_LOG
 
     set +e
 
@@ -414,6 +426,10 @@ EOF
 
     cd $GOPATH/src/github.com/projectcalico/app-policy
     ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make test 2>&1 | tee -a "$TEST_APP_LOG"
+    
+    cd $GOPATH/src/github.com/projectcalico/apiserver
+    ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make test 2>&1 | tee -a "$TEST_APPSERVER_LOG"
+    
 
     printf -- "\n------------------------------------------------------------------------------------------------------------------- \n"
     printf -- "\n Please review results of individual test components."
