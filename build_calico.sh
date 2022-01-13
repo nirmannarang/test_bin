@@ -300,6 +300,7 @@ EOF
     docker tag calico/typha:latest-s390x calico/typha:${PACKAGE_VERSION}
     docker tag calico/ctl:latest-s390x calico/ctl:${PACKAGE_VERSION}
     docker tag calico/cni:latest-s390x calico/cni:${PACKAGE_VERSION}
+    docker tag calico/apiserver:latest-s390x docker.io/calico/apiserver:${PACKAGE_VERSION}
 }
 
 function runTest() {
