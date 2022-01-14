@@ -521,7 +521,7 @@ case "$DISTRO" in
     configureAndInstall |& tee -a "$LOG_FILE"
     ;;
 
-"sles-12.5" | "sles-15.2")
+"sles-12.5" | "sles-15.2" | "sles-15.3")
     printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" | tee -a "$LOG_FILE"
     printf -- "Installing dependencies ... it may take some time.\n"
     sudo zypper install -y curl git wget tar gcc glibc-devel-static make which patch 2>&1 | tee -a "$LOG_FILE"
