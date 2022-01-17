@@ -270,9 +270,9 @@ EOF
     ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make image 2>&1 | tee -a "$POD_LOG"
     docker tag calico/pod2daemon-flexvol:latest-s390x calico/pod2daemon:latest-s390x
 	
-	git clone -b release-v3.21 https://github.com/projectcalico/api $GOPATH/src/github.com/projectcalico/api
+    git clone -b release-v3.21 https://github.com/projectcalico/api $GOPATH/src/github.com/projectcalico/api
     cd $GOPATH/src/github.com/projectcalico/api
-	ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make build
+    ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make build
 	
 	sed -i '806s/docker/-docker/' $GOPATH/src/github.com/projectcalico/typha/Makefile.common
 	sed -i '806s/docker/-docker/' $GOPATH/src/github.com/projectcalico/kube-controllers/Makefile.common
@@ -414,7 +414,7 @@ EOF
     ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make st 2>&1 | tee -a "$TEST_NODE_LOG"
 
     cd $GOPATH/src/github.com/projectcalico/felix
-    ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make test 2>&1 | tee "$TEST_FELIX_LOG"
+    ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make ut 2>&1 | tee "$TEST_FELIX_LOG"
 
     cd $GOPATH/src/github.com/projectcalico/kube-controllers
     ARCH=s390x CALICOCTL_VER=latest CNI_VER=latest-s390x EXTRA_DOCKER_ARGS="-v $(pwd)/../:/go/src/github.com/projectcalico" make test 2>&1 | tee -a "$TEST_KC_LOG"
